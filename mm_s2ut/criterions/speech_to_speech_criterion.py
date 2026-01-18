@@ -30,7 +30,6 @@ from fairseq.criterions.speech_to_speech_criterion import (
 
 logger = logging.getLogger(__name__)
 
-
 @register_criterion(
     "speech_to_unit_v2", dataclass=RdropLabelSmoothedCrossEntropyCriterionConfig
 )

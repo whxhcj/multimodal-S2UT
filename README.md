@@ -23,8 +23,6 @@ Team & Acknowledgments
 
 **Textless Speech-to-Speech Translation (S2ST)**, which directly converts speech from one language to another without intermediate text, struggles with data scarcity. Audio-visual S2ST models enhance performance by integrating visual information, particularly in low-resource or noisy scenarios. However, both speech and visual representations often contain redundant information, which can interfere during the fusion process and degrade translation performance. Therefore, we propose **VisualTrans**, a novel framework that introduces an information bottleneck module to filter redundant information from both speech and visual representations, thereby mitigating their negative impact on translation results. Additionally, we introduce the **Speech Multi30K dataset**, comprising parallel speech-text pairs and corresponding images. Experiments demonstrate that VisualTrans outperforms baseline models, achieving an average improvement of **1.04 BLEU** **points** and enhancing robustness even in noisy environments.
 
-To gain a deeper understanding of which areas in the images the model's visual encoders focus on, we select the visual encoders from **pretrained ViT**, **wav2vec2 S2UT+ca**, and **VisualTrans** to analyze their heatmaps for a set of example images. In the heatmaps, the importance of each pixel is represented by varying brightness or colors, with brighter or darker regions indicating that the model is placing greater attention or assigning higher weights.
-
 ![1](image/1.png)
 
 ![2](image/2.png)
