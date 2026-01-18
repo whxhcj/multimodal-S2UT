@@ -1,4 +1,4 @@
-# Multimodal Speech-to-Unit Translation (MM-S2UT)
+# VisualTrans: Speech Translation with Visual Representation Augmentation in Low Resource Scenarios
 
 <div align="center">
 
