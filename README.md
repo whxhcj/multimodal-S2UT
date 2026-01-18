@@ -10,7 +10,8 @@
 **An End-to-End Speech-to-Speech Translation System Based on Multimodal Fusion**
 
 </div>
-## 👥 Team & Acknowledgments
+
+Team & Acknowledgments
 
 * **[Haoxiang Wu](https://github.com/your-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
 * **[Wenrui Liu](https://github.com/wenrui-id)** – PhD Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
