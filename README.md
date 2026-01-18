@@ -13,9 +13,9 @@
 
 Team & Acknowledgments
 
-* **[Haoxiang Wu](https://github.com/your-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
-* **[Wenrui Liu](https://github.com/wenrui-id)** – PhD Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
-* **[Xiyan Jiang](https://github.com/xiyan-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
+* **Haoxiang Wu** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
+* **Wenrui Liu** – PhD Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
+* **Xiyan Jiang** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
 
 ---
 
