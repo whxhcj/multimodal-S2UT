@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 **An End-to-End Speech-to-Speech Translation System Based on Multimodal Fusion**
-
+<\div>
 ## 👥 Team & Acknowledgments
 
 * **[Haoxiang Wu](https://github.com/your-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
