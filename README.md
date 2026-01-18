@@ -1,26 +1,25 @@
-
-
 # Multimodal Speech-to-Unit Translation (MM-S2UT)
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![PyTorch](https://img.shields.io/badge/PyTorch-1.10+-ee4c2c.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 **An End-to-End Speech-to-Speech Translation System Based on Multimodal Fusion**
 
-[Features](##✨ Features) • [Architecture](##🏗️ Project Architecture) • [Installation & Setup](##🚀 Installation & Setup) • [Usage Examples](##💡 Usage Examples)
+## 👥 Team & Acknowledgments
 
-</div>
+* **[Haoxiang Wu](https://github.com/your-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
+* **[Wenrui Liu](https://github.com/wenrui-id)** – PhD Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
+* **[Xiyan Jiang](https://github.com/xiyan-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
 
-------
+---
 
 ## 📖 Overview
 
 **Textless Speech-to-Speech Translation (S2ST)**, which directly converts speech from one language to another without intermediate text, struggles with data scarcity. Audio-visual S2ST models enhance performance by integrating visual information, particularly in low-resource or noisy scenarios. However, both speech and visual representations often contain redundant information, which can interfere during the fusion process and degrade translation performance. Therefore, we propose **VisualTrans**, a novel framework that introduces an information bottleneck module to filter redundant information from both speech and visual representations, thereby mitigating their negative impact on translation results. Additionally, we introduce the **Speech Multi30K dataset**, comprising parallel speech-text pairs and corresponding images. Experiments demonstrate that VisualTrans outperforms baseline models, achieving an average improvement of **1.04 BLEU** **points** and enhancing robustness even in noisy environments.
 
-To gain a deeper understanding of which areas in the images the model's visual encoders focus on, we select the visual encoders from **pretrained ViT**, **wav2vec2 S2UT+ca**, and **VisualTrans** to analyze their heatmaps for a set of example images. In the heatmaps, the importance of each pixel is represented by varying brightness or colors, with brighter or darker regions indicating that the model is placing greater attention or assigning higher weights. 
+To gain a deeper understanding of which areas in the images the model's visual encoders focus on, we select the visual encoders from **pretrained ViT**, **wav2vec2 S2UT+ca**, and **VisualTrans** to analyze their heatmaps for a set of example images. In the heatmaps, the importance of each pixel is represented by varying brightness or colors, with brighter or darker regions indicating that the model is placing greater attention or assigning higher weights.
 
 ![1](image/1.png)
 
@@ -28,7 +27,7 @@ To gain a deeper understanding of which areas in the images the model's visual e
 
 While cross attention can integrate information from speech and images, it does not effectively assist speech translation with images. **VisualTrans** implicitly aligns speech and visual features, and supplements deficient or erroneous information in the speech with aligned visual features, leading to more accurate speech translation.
 
-------
+---
 
 ## ✨ Features
 
@@ -40,7 +39,7 @@ While cross attention can integrate information from speech and images, it does 
 - **Distributed training** support
 - **Multi-metric evaluation**: BLEU, ASR-BLEU, WER
 
-------
+---
 
 ## 🏗️ Project Architecture
 
@@ -52,7 +51,7 @@ While cross attention can integrate information from speech and images, it does 
 
 ![model](image/model.png)
 
-------
+---
 
 ## 🚀 Installation & Setup
 
@@ -191,7 +190,7 @@ python 5_bleu_asr.py \
     --hypothesis hyp.txt
 ```
 
-------
+---
 
 ## 💡 Usage Examples
 
@@ -270,18 +269,18 @@ python mm_s2ut/scripts/wer.py \
 
 Here are some experimental results. These results demonstrate that **VisualTrans** consistently outperforms the **AV-TranSpeech** baseline across all language pairs and datasets, highlighting the superior efficacy of the M-Fusion mechanism in multimodal speech-to-speech translation.
 
-| **Language Pair** | **Model**     | **Modality** | **Fuse Method** | **Valid** | **Test.2016** | **Test.2017** | **Test.coco** |
-| ----------------- | ------------- | ------------ | --------------- | --------- | ------------- | ------------- | ------------- |
-| **fr → en**       | AV-TranSpeech | S+V          | addition        | 31.73     | 32.71         | 27.59         | 23.92         |
-|                   | VisualTrans   | S+V          | M-Fusion        | 34.52     | 35.63         | 30.29         | 26.94         |
-| **en → fr**       | AV-TranSpeech | S+V          | addition        | 25.41     | 27.03         | 24.17         | 20.26         |
-|                   | VisualTrans   | S+V          | M-Fusion        | 26.69     | 27.30         | 25.09         | 21.03         |
-| **es → en**       | AV-TranSpeech | S+V          | addition        | 40.04     | 39.50         | 36.17         | 31.87         |
-|                   | VisualTrans   | S+V          | M-Fusion        | 41.94     | 42.64         | 37.34         | 35.02         |
-| **en → es**       | AV-TranSpeech | S+V          | addition        | 55.82     | 58.06         | 50.26         | 48.55         |
-|                   | VisualTrans   | S+V          | M-Fusion        | 57.64     | 58.57         | 50.41         | 48.73         |
+| **Language Pair** | **Model** | **Modality** | **Fuse Method** | **Valid** | **Test.2016** | **Test.2017** | **Test.coco** |
+| ----------------------- | --------------- | ------------------ | --------------------- | --------------- | ------------------- | ------------------- | ------------------- |
+| **fr → en**      | AV-TranSpeech   | S+V                | addition              | 31.73           | 32.71               | 27.59               | 23.92               |
+|                         | VisualTrans     | S+V                | M-Fusion              | 34.52           | 35.63               | 30.29               | 26.94               |
+| **en → fr**      | AV-TranSpeech   | S+V                | addition              | 25.41           | 27.03               | 24.17               | 20.26               |
+|                         | VisualTrans     | S+V                | M-Fusion              | 26.69           | 27.30               | 25.09               | 21.03               |
+| **es → en**      | AV-TranSpeech   | S+V                | addition              | 40.04           | 39.50               | 36.17               | 31.87               |
+|                         | VisualTrans     | S+V                | M-Fusion              | 41.94           | 42.64               | 37.34               | 35.02               |
+| **en → es**      | AV-TranSpeech   | S+V                | addition              | 55.82           | 58.06               | 50.26               | 48.55               |
+|                         | VisualTrans     | S+V                | M-Fusion              | 57.64           | 58.57               | 50.41               | 48.73               |
 
-------
+---
 
 ## 🙏 Acknowledgments
 
@@ -294,4 +293,3 @@ This project is built on the following excellent open-source projects:
 - [HuBERT](https://arxiv.org/abs/2106.07447) - Hidden-Unit BERT
 
 Thanks to all contributors for their hard work!
-
