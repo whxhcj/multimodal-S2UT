@@ -1,12 +1,15 @@
 # Multimodal Speech-to-Unit Translation (MM-S2UT)
 
-
-![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
 <div align="center">
-**An End-to-End Speech-to-Speech Translation System Based on Multimodal Fusion**
-</div>
 
+<img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python">
+<img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+
+<br />
+
+**An End-to-End Speech-to-Speech Translation System Based on Multimodal Fusion**
+
+</div>
 ## 👥 Team & Acknowledgments
 
 * **[Haoxiang Wu](https://github.com/your-id)** – Master Student @ [Zhejiang University](https://www.zju.edu.cn/english/)
