@@ -337,10 +337,3 @@ This project is built on the following excellent open-source projects:
 - [HuBERT](https://arxiv.org/abs/2106.07447) - Hidden-Unit BERT
 
 Thanks to all contributors for their hard work!
-
-------
-
-<div align="center">
-**[⬆ Back to Top](#Multimodal Speech-to-Unit Translation (MM-S2UT))**
-
-</div>
