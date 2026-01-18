@@ -1,0 +1,7 @@
+audio_root: /opt/data/private/dsy/project/dataset/multi30k-dataset/data/speech/format_data/fr-en_enhanced
+standardize_audio: true
+use_audio_input: true
+vocab_filename: dict_1003_unitmbart.txt
+prepend_bos_and_append_tgt_lang_tag: true
+tgt_lang: <lang:en>
+eos_token: <lang:en>

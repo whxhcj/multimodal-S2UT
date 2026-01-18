@@ -1,0 +1,7 @@
+soundfile
+wavfile
+pandas
+unidecode
+inflect
+ipykernel
+py3nvml

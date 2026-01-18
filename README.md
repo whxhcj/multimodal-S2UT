@@ -1,3 +1,5 @@
+
+
 # Multimodal Speech-to-Unit Translation (MM-S2UT)
 
 <div align="center">
@@ -16,9 +18,15 @@
 
 ## 📖 Overview
 
-**MM-S2UT (Multimodal Speech-to-Unit Translation)** is a speech-to-speech translation system that fuses **speech** and **visual** information for more accurate and context-aware translation. Built on Fairseq framework with Transformer architecture, supporting end-to-end speech unit generation and translation.
+**Textless Speech-to-Speech Translation (S2ST)**, which directly converts speech from one language to another without intermediate text, struggles with data scarcity. Audio-visual S2ST models enhance performance by integrating visual information, particularly in low-resource or noisy scenarios. However, both speech and visual representations often contain redundant information, which can interfere during the fusion process and degrade translation performance. Therefore, we propose **VisualTrans**, a novel framework that introduces an information bottleneck module to filter redundant information from both speech and visual representations, thereby mitigating their negative impact on translation results. Additionally, we introduce the **Speech Multi30K dataset**, comprising parallel speech-text pairs and corresponding images. Experiments demonstrate that VisualTrans outperforms baseline models, achieving an average improvement of **1.04 BLEU** **points** and enhancing robustness even in noisy environments.
 
-**Tech Stack**: PyTorch, Fairseq, Hugging Face Transformers, timm, Wav2Vec2, HuBERT, Vision Transformer (ViT), DETR
+To gain a deeper understanding of which areas in the images the model's visual encoders focus on, we select the visual encoders from **pretrained ViT**, **wav2vec2 S2UT+ca**, and **VisualTrans** to analyze their heatmaps for a set of example images. In the heatmaps, the importance of each pixel is represented by varying brightness or colors, with brighter or darker regions indicating that the model is placing greater attention or assigning higher weights. 
+
+![1](image/1.png)
+
+![2](image/2.png)
+
+While cross attention can integrate information from speech and images, it does not effectively assist speech translation with images. **VisualTrans** implicitly aligns speech and visual features, and supplements deficient or erroneous information in the speech with aligned visual features, leading to more accurate speech translation.
 
 ------
 
@@ -36,71 +44,13 @@
 
 ## 🏗️ Project Architecture
 
-### System Architecture Overview
+### Architecture Overview
 
-​		The MM-S2UT system adopts an encoder-decoder architecture, fusing audio and visual features through selective attention mechanisms:
+**VisualTrans** adopts an encoder-decoder architecture, fusing audio and visual features through selective attention mechanisms:
 
-```mermaid
-graph TB
-    A[Audio Input] --> B[Speech Encoder<br/>Wav2Vec2/HuBERT]
-    C[Image Input] --> D[Visual Encoder<br/>ViT/DETR/ResNet]
-    
-    B --> E[Multimodal Fusion Layer<br/>Selective Attention]
-    D --> E
-    
-    E --> F[Transformer Decoder]
-    F --> G[Speech Unit Sequence]
-    G --> H[Vocoder<br/>Unit-to-Waveform]
-    H --> I[Output Speech]
-    
-    style E fill:#ff9900,stroke:#333,stroke-width:3px
-    style B fill:#4a90e2,stroke:#333,stroke-width:2px
-    style D fill:#4a90e2,stroke:#333,stroke-width:2px
-    style F fill:#50c878,stroke:#333,stroke-width:2px
-```
+![MMS2UT](image/MMS2UT.png)
 
-### Core Modules
-
-#### 1. **Speech Encoder**
-
-- Pre-trained models: Wav2Vec2, HuBERT, mHuBERT
-- Extracts high-level semantic features from speech
-
-#### 2. **Visual Encoder**
-
-- **ViT (Vision Transformer)**: Patch-based visual representation
-- **DETR**: Object detection features
-- **ResNet + Transformer Encoder**: Convolution + attention
-
-#### 3. **Multimodal Fusion Layer**
-
-- **Selective Attention**: Dynamically computes audio/visual feature weights
-- **Multimodal Attention**: Cross-modal cross-attention
-
-#### 4. **Decoder & Vocoder**
-
-- Transformer decoder generates target language speech units
-- Neural vocoder converts units to waveforms
-
-### Data Flow Diagram
-
-```mermaid
-flowchart LR
-    A[Raw Data] --> B[Preprocessing]
-    B --> C[Feature Extraction]
-    C --> D[Training Data]
-    
-    D --> E[Model Training]
-    E --> F[Checkpoint]
-    
-    F --> G[Inference]
-    G --> H[Speech Units]
-    H --> I[Waveform Generation]
-    I --> J[Evaluation]
-    
-    style E fill:#ff6b6b,stroke:#333,stroke-width:2px
-    style G fill:#4ecdc4,stroke:#333,stroke-width:2px
-```
+![model](image/model.png)
 
 ------
 
@@ -269,28 +219,22 @@ import torch
 from fairseq import checkpoint_utils, tasks
 from mm_s2ut.models import MM_S2UTTransformerModel
 
-# Load model
 models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(
     ['checkpoints/mm_s2ut/checkpoint_best.pt']
 )
 model = models[0].cuda()
 model.eval()
 
-# Prepare input
 audio_path = 'examples/audio.wav'
 image_path = 'examples/image.jpg'
 
-# Load data
 sample = task.load_sample(audio_path, image_path)
 
-# Inference
 with torch.no_grad():
     units = model.generate(sample)
 
-# Generate waveform
 waveform = vocoder.generate(units)
 
-# Save output
 import soundfile as sf
 sf.write('output.wav', waveform, 16000)
 ```
@@ -323,6 +267,19 @@ python mm_s2ut/scripts/wer.py \
 # Deletions: 45
 # Substitutions: 89
 ```
+
+Here are some experimental results. These results demonstrate that **VisualTrans** consistently outperforms the **AV-TranSpeech** baseline across all language pairs and datasets, highlighting the superior efficacy of the M-Fusion mechanism in multimodal speech-to-speech translation.
+
+| **Language Pair** | **Model**     | **Modality** | **Fuse Method** | **Valid** | **Test.2016** | **Test.2017** | **Test.coco** |
+| ----------------- | ------------- | ------------ | --------------- | --------- | ------------- | ------------- | ------------- |
+| **fr → en**       | AV-TranSpeech | S+V          | addition        | 31.73     | 32.71         | 27.59         | 23.92         |
+|                   | VisualTrans   | S+V          | M-Fusion        | 34.52     | 35.63         | 30.29         | 26.94         |
+| **en → fr**       | AV-TranSpeech | S+V          | addition        | 25.41     | 27.03         | 24.17         | 20.26         |
+|                   | VisualTrans   | S+V          | M-Fusion        | 26.69     | 27.30         | 25.09         | 21.03         |
+| **es → en**       | AV-TranSpeech | S+V          | addition        | 40.04     | 39.50         | 36.17         | 31.87         |
+|                   | VisualTrans   | S+V          | M-Fusion        | 41.94     | 42.64         | 37.34         | 35.02         |
+| **en → es**       | AV-TranSpeech | S+V          | addition        | 55.82     | 58.06         | 50.26         | 48.55         |
+|                   | VisualTrans   | S+V          | M-Fusion        | 57.64     | 58.57         | 50.41         | 48.73         |
 
 ------
 

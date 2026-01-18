@@ -1,0 +1,41 @@
+SA_image_dropout: 0.1
+# SA_text_dropout: 0.1
+SA_text_dropout: 0.0
+SA_attention_dropout: 0.1
+image_pre_norm: True
+is_fusion_top: True
+# is_fusion_top: False
+image_feat_path: 
+  [
+    # "/opt/data/private/dsy/project/dataset/multi30k-dataset/data/image_feat/DETR-DC5-R101", 
+    # "/opt/data/private/dsy/project/dataset/multi30k-dataset/data/image_feat/vit_base_patch16_384", 
+    "/opt/data/private/dsy/project/dataset/multi30k-dataset/data/image_feat_2/vit_base_patch16_384", 
+  ]
+image_feat_dim:
+  [
+    # 256, 
+    768, 
+  ]
+flickr30k_root: /opt/data/private/dsy/project/dataset/flickr30k
+
+visual_extractor_type_choices: [null, "", vit, detr, resnet, resnet+encoder]
+load_visual_extractor_type: null
+load_visual_extractor: null
+# load_visual_extractor_type: vit
+# load_visual_extractor: /opt/data/private/dsy/project/checkpoint/vit_base_patch16_clip_384.laion2b_ft_in12k_in1k/pytorch_model.bin
+
+# avhubert dropout
+# modality_dropout: 0.5
+modality_dropout: -0.5
+# audio_dropout: 0.5
+audio_dropout: -0.5
+# modality_dropout: 1.1
+# audio_dropout: 1.1
+
+multimodal_attention_type_choices: [null, selective_attention, multimodal_attention]
+# multimodal_attention_type: selective_attention
+use_selective_gate: True
+multimodal_attention_type: multimodal_attention
+# use_selective_gate: False
+# is_merge_text_img: True # only useful in multimodal_attention
+is_merge_text_img: False
